@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+html(lang="en")
+	head
+		meta(charset="UTF-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		meta(http-equiv="X-UA-Compatible", content="ie=edge")
+		title Title
+		link(rel="stylesheet", href="/css/bootstrap.min.css")
+		link(rel="stylesheet", href="/css/style.css")
+	body
+		header
+			nav.navbar
+				.container
+					a.navbar-brand(href='/') Home
+					a.nav-link.mr-auto(href="/add") Add Movie
+					form.d-flex(action="/")
+						.form-inline
+							if (queries) 
+								- var sort = queries.sort
+							select.form-control(name="sort")
+								option(disabled hidden selected) Sort by
+								option(value="A-Z" selected=(sort == 'A-Z' ? true : false)) A-Z
+								option(value="Z-A" selected=(sort == 'Z-A' ? true : false)) Z-A
+								option(value="Newest" selected=(sort == 'Newest' ? true : false)) Newest
+							button.btn.btn-outline-success.my-2.my-sm-0.mx-2(type="submit") Sort
+						.form-inline
+							if (queries) 
+								- var search = queries.search
+							input#search.form-control.mr-sm-2(type="search" name='search' placeholder='Titile or Actor' value=`${search || ''}`)
+							button.btn.btn-outline-success.my-2.my-sm-0(type="submit") Search
+		main
+			.container.d-flex.flex-wrap.justify-content-center
+				block content
+		footer.text-center
+			small &copy Copyright Movies 2019
+	script(src="https://unpkg.com/axios/dist/axios.min.js")
